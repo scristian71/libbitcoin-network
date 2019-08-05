@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2019 libbitcoin developers (see AUTHORS)
  *
  * This file is part of libbitcoin.
  *
@@ -20,7 +20,7 @@
 
 #include <functional>
 #include <string>
-#include <bitcoin/bitcoin.hpp>
+#include <bitcoin/system.hpp>
 #include <bitcoin/network/channel.hpp>
 #include <bitcoin/network/p2p.hpp>
 #include <bitcoin/network/protocols/protocol.hpp>
@@ -30,6 +30,7 @@ namespace network {
 
 #define CLASS protocol_events
 
+using namespace bc::system;
 using namespace std::placeholders;
 
 protocol_events::protocol_events(p2p& network, channel::ptr channel,

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2019 libbitcoin developers (see AUTHORS)
  *
  * This file is part of libbitcoin.
  *
@@ -20,7 +20,7 @@
 #define LIBBITCOIN_NETWORK_PROTOCOL_TIMER_HPP
 
 #include <string>
-#include <bitcoin/bitcoin.hpp>
+#include <bitcoin/system.hpp>
 #include <bitcoin/network/channel.hpp>
 #include <bitcoin/network/define.hpp>
 #include <bitcoin/network/protocols/protocol_events.hpp>
@@ -40,7 +40,7 @@ protected:
 
     /**
      * Construct a timed protocol instance.
-     * @param[in]  network   The network interface.
+     * @param[in]  network    The network interface.
      * @param[in]  channel    The channel on which to start the protocol.
      * @param[in]  perpetual  Set for automatic timer reset unless stopped.
      * @param[in]  name       The instance name for logging purposes.
@@ -55,7 +55,8 @@ protected:
      * @param[in]  timeout  The timer period (not automatically reset).
      * @param[in]  handler  Invoke automatically on stop and timer events.
      */
-    virtual void start(const asio::duration& timeout, event_handler handler);
+    virtual void start(const system::asio::duration& timeout,
+        event_handler handler);
 
     // Expose polymorphic start method from base.
     using protocol_events::start;
@@ -64,11 +65,11 @@ protected:
     void reset_timer();
 
 private:
-    void handle_timer(const code& ec);
-    void handle_notify(const code& ec, event_handler handler);
+    void handle_timer(const system::code& ec);
+    void handle_notify(const system::code& ec, event_handler handler);
 
     const bool perpetual_;
-    deadline::ptr timer_;
+    system::deadline::ptr timer_;
 };
 
 } // namespace network

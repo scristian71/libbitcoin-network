@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2019 libbitcoin developers (see AUTHORS)
  *
  * This file is part of libbitcoin.
  *
@@ -23,7 +23,7 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
-#include <bitcoin/bitcoin.hpp>
+#include <bitcoin/system.hpp>
 #include <bitcoin/network/acceptor.hpp>
 #include <bitcoin/network/channel.hpp>
 #include <bitcoin/network/connector.hpp>
@@ -39,6 +39,7 @@ namespace network {
 #define CLASS session
 #define NAME "session"
 
+using namespace bc::system;
 using namespace std::placeholders;
 
 session::session(p2p& network, bool notify_on_connect)

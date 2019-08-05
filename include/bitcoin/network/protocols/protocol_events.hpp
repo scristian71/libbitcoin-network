@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2019 libbitcoin developers (see AUTHORS)
  *
  * This file is part of libbitcoin.
  *
@@ -20,7 +20,7 @@
 #define LIBBITCOIN_NETWORK_PROTOCOL_EVENTS_HPP
 
 #include <string>
-#include <bitcoin/bitcoin.hpp>
+#include <bitcoin/system.hpp>
 #include <bitcoin/network/channel.hpp>
 #include <bitcoin/network/define.hpp>
 #include <bitcoin/network/protocols/protocol.hpp>
@@ -63,7 +63,7 @@ protected:
      * Invoke the event handler.
      * @param[in]  ec  The error code of the preceding operation.
      */
-    virtual void set_event(const code& ec);
+    virtual void set_event(const system::code& ec);
 
     /**
      * Determine if the event handler has been cleared.
@@ -73,14 +73,12 @@ protected:
     /**
      * Determine if the code is a stop code or the handler has been cleared.
      */
-    virtual bool stopped(const code& ec) const;
+    virtual bool stopped(const system::code& ec) const;
 
 private:
-    void handle_started(completion_handler handler);
-    void handle_stopped(const code& ec);
-    void do_set_event(const code& ec);
+    void handle_stopped(const system::code& ec);
 
-    bc::atomic<event_handler> handler_;
+    system::atomic<event_handler> handler_;
 };
 
 } // namespace network

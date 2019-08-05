@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2019 libbitcoin developers (see AUTHORS)
  *
  * This file is part of libbitcoin.
  *
@@ -22,9 +22,8 @@
 #include <functional>
 #include <iostream>
 #include <memory>
-#include <bitcoin/bitcoin.hpp>
+#include <bitcoin/system.hpp>
 #include <bitcoin/network/channel.hpp>
-#include <bitcoin/network/proxy.hpp>
 #include <bitcoin/network/settings.hpp>
 
 namespace libbitcoin {
@@ -32,6 +31,7 @@ namespace network {
 
 #define NAME "acceptor"
 
+using namespace bc::system;
 using namespace std::placeholders;
 
 static const auto reuse_address = asio::acceptor::reuse_address(true);
@@ -82,7 +82,7 @@ bool acceptor::stopped() const
 }
 
 // This is hardwired to listen on IPv6.
-code acceptor::listen(uint16_t )
+code acceptor::listen(uint16_t port)
 {
     // Critical Section
     ///////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ code acceptor::listen(uint16_t )
     }
 
     boost_code error;
-    asio::endpoint endpoint(asio::tcp::v6(), settings_.inbound_port);
+    asio::endpoint endpoint(system::asio::tcp::v6(), port);
 
     mutex_.unlock_upgrade_and_lock();
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -133,7 +133,7 @@ void acceptor::accept(accept_handler handler)
         return;
     }
 
-    const auto socket = std::make_shared<bc::socket>(pool_);
+    const auto socket = std::make_shared<system::socket>(pool_);
 
     mutex_.unlock_upgrade_and_lock();
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -151,8 +151,8 @@ void acceptor::accept(accept_handler handler)
 }
 
 // private:
-void acceptor::handle_accept(const boost_code& ec, socket::ptr socket,
-    accept_handler handler)
+void acceptor::handle_accept(const boost_code& ec,
+    socket::ptr socket, accept_handler handler)
 {
     if (ec)
     {

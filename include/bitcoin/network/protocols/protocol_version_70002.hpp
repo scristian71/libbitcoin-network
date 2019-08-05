@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2019 libbitcoin developers (see AUTHORS)
  *
  * This file is part of libbitcoin.
  *
@@ -22,7 +22,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
-#include <bitcoin/bitcoin.hpp>
+#include <bitcoin/system.hpp>
 #include <bitcoin/network/channel.hpp>
 #include <bitcoin/network/define.hpp>
 #include <bitcoin/network/protocols/protocol_version_31402.hpp>
@@ -68,11 +68,11 @@ public:
     void start(event_handler handler) override;
 
 protected:
-    message::version version_factory() const override;
-    bool sufficient_peer(version_const_ptr message) override;
+    system::message::version version_factory() const override;
+    bool sufficient_peer(system::version_const_ptr message) override;
 
-    virtual bool handle_receive_reject(const code& ec,
-        reject_const_ptr reject);
+    virtual bool handle_receive_reject(const system::code& ec,
+        system::reject_const_ptr reject);
 
     const bool relay_;
 };

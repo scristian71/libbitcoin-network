@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2017 libbitcoin developers (see AUTHORS)
+ * Copyright (c) 2011-2019 libbitcoin developers (see AUTHORS)
  *
  * This file is part of libbitcoin.
  *
@@ -19,7 +19,7 @@
 #ifndef LIBBITCOIN_NETWORK_SESSION_BATCH_HPP
 #define LIBBITCOIN_NETWORK_SESSION_BATCH_HPP
 
-#include <bitcoin/bitcoin.hpp>
+#include <bitcoin/system.hpp>
 #include <bitcoin/network/channel.hpp>
 #include <bitcoin/network/connector.hpp>
 #include <bitcoin/network/define.hpp>
@@ -46,9 +46,9 @@ protected:
 private:
     // Connect sequence
     void new_connect(channel_handler handler);
-    void start_connect(const code& ec, const authority& host,
+    void start_connect(const system::code& ec, const authority& host,
         channel_handler handler);
-    void handle_connect(const code& ec, channel::ptr channel,
+    void handle_connect(const system::code& ec, channel::ptr channel,
         connector::ptr connector, channel_handler handler);
 
     const size_t batch_size_;
